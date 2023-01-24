@@ -5,10 +5,16 @@ using UnityEngine;
 public class Driver : MonoBehaviour
 {
     [SerializeField]
-    int turnSpeed = 250;
+    float turnSpeed = 250f;
 
     [SerializeField]
-    int moveSpeed = 30;
+    float moveSpeed = 30f;
+
+    [SerializeField]
+    float slowSpeed = 20f;
+
+    [SerializeField]
+    float fastSpeed = 50f;
 
     // Start is called before the first frame update
     void Start()
@@ -30,5 +36,14 @@ public class Driver : MonoBehaviour
         float exelaration = Input.GetAxis("Vertical") * moveSpeed * frameRate;
         transform.Rotate(0, 0, -turnAmount);
         transform.Translate(0, exelaration, 0);
+    }
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.tag == "Boost")
+        {
+            Debug.Log("BOOST");
+            moveSpeed = fastSpeed;
+        }
     }
 }
